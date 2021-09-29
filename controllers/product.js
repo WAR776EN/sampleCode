@@ -29,5 +29,32 @@ module.exports = {
       console.log(err)
       next(err)
     }
+  },
+  async getAllProducts(req, res, next) {
+    try {
+      const queryResult = await findAllProducts()
+      res.status(200).json({
+        success: true,
+        message: 'success get all products',
+        data: queryResult
+      })
+    }
+    catch(err) {
+      next(err)
+    }
+  },
+  async gerProductById(req, res, next) {
+    try {
+      const { id } = req.params
+      const queryResult = await findOneProduct({ id })
+      res.status(200).json({
+        success: true,
+        message: 'success get product',
+        data: queryResult
+      })
+    }
+    catch(err) {
+      next(err)
+    }
   }
 }

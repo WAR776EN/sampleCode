@@ -3,7 +3,8 @@ const { Op: { or }} = require('sequelize')
 
 exports.createProduct = async (data, dbTransaction) => {
 	try {
-		await Product.create(data, { transaction: dbTransaction })
+		const result = await Product.create(data, { transaction: dbTransaction })
+		return result
 	}
 	catch(err) {
 		throw err
@@ -12,7 +13,11 @@ exports.createProduct = async (data, dbTransaction) => {
 
 exports.findAllProducts = async () => {
 	try {
-		const result = await Product.findAll()
+		const result = await Product.findAll({
+			attributes: {
+				exclude: ['createdAt', 'updatedAt']
+			}
+		})
 		return JSON.parse(JSON.stringify(result))
 	}
 	catch(err) {
@@ -20,9 +25,12 @@ exports.findAllProducts = async () => {
 	}
 }
 
-exports.findOneProduct = async ({ id, name }) => {
+exports.findOneProduct = async ({ id, name = '' }) => {
 	try {
 		const result = await Product.findAll({
+			attributes: {
+				exclude: ['createdAt', 'updatedAt']
+			},
 			where: {
 				[or] : [{ id }, { name }]
 			}
