@@ -21,8 +21,6 @@ exports.validateProduct = data => {
     for (let [key, testFunction] of Object.entries(validations)) {
       if (!(key in data)) throw new RequestValidationError(`${key} required`)
       testFunction(data[key])
-      // if (Object.keys(validations).includes(key) ) 
-      // validations[key](value)
     }
   }
   catch(err) {
