@@ -17,9 +17,12 @@ exports.validateProduct = data => {
         if (!isNumeric(dataTest)) throw new RequestValidationError('stock must be alphanumeric')
       }
     }
-    for (let [key, value] of Object.entries(data)) {
-      if (!key) throw new RequestValidationError(`${key} required`)
-      validations[key](value)
+    
+    for (let [key, testFunction] of Object.entries(validations)) {
+      if (!(key in data)) throw new RequestValidationError(`${key} required`)
+      testFunction(data[key])
+      // if (Object.keys(validations).includes(key) ) 
+      // validations[key](value)
     }
   }
   catch(err) {
