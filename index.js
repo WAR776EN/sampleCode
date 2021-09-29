@@ -13,6 +13,7 @@ const { errorMaster, _404handler } = require('./middlewares/errorHandler')
 app.use(productRoutes)
 
 app.use(errorMaster)
-app.use(_404handler)
+app.use('*', _404handler)
+
 const PORT = process.env.PORT
 app.listen(PORT, () => console.log(`server is running at port ${ PORT}`))

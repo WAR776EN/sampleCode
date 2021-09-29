@@ -7,13 +7,13 @@ exports.errorMaster = async (err, req, res, next) => {
     })
   }
   catch (err) {
-    throw err
+    next(err)
   }
 }
 
-exports._404handler = async (err, req, res, next) => {
+exports._404handler = async ( req, res, next) => {
   try {
-    res.status(404).send(`404!. ${req.originalUrl} not found`)
+    res.status(404).send(`404 !! route ${req.originalUrl} not found`)
   }
   catch(err) {
     throw err

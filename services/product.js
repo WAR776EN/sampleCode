@@ -27,7 +27,7 @@ exports.findAllProducts = async () => {
 
 exports.findOneProduct = async ({ id, name = '' }) => {
 	try {
-		const result = await Product.findAll({
+		const result = await Product.findOne({
 			attributes: {
 				exclude: ['createdAt', 'updatedAt']
 			},
